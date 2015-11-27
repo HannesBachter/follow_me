@@ -52,7 +52,7 @@ void fill_dir_arr(float arr[]){
 }
 
 int main(int argc, char** argv){
-  ROS_INFO("ROS Init");  
+  ROS_INFO("ROS Init");
   ros::init(argc, argv, "simple_navigation_goals");
     //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
@@ -65,7 +65,7 @@ int main(int argc, char** argv){
   move_base_msgs::MoveBaseGoal goal;
 
   while(1){
-  ROS_INFO("Loop");  
+  ROS_INFO("Loop");
   //we'll send a goal to the robot
   goal.target_pose.header.frame_id = "base_link";
   goal.target_pose.header.stamp = ros::Time::now();
@@ -74,22 +74,26 @@ int main(int argc, char** argv){
 	  fill_dir_arr(pos_arr);
 
 	  //goal.target_pose.pose.position.x = 1.0;
-	  goal.target_pose.pose.position.x = pos_arr[0]-1.0;
-	  goal.target_pose.pose.position.y = pos_arr[1]-1.0;
-	  ROS_INFO("Target Pos: %f", pos_arr[0]);
+	  //goal.target_pose.pose.position.x = pos_arr[0]-1.0;
+	  //goal.target_pose.pose.position.y = pos_arr[1]-1.0;
+	  //ROS_INFO("Target Pos: %f", pos_arr[0]);
 	  //goal.target_pose.pose.orientation.w = 1.0;
-	  //goal.target_pose.pose.orientation.x = 4.0 * atan2(pos_arr[1],pos_arr[0]);
-	  //goal.target_pose.pose.orientation.y = 4.0 * atan2(pos_arr[1],pos_arr[0]);
-	  //goal.target_pose.pose.orientation.z = 4.0*atan2(pos_arr[1],pos_arr[0]);
-	  goal.target_pose.pose.orientation.w = 1.0;//4.0 * atan2(pos_arr[1],pos_arr[0]);
+	  goal.target_pose.pose.orientation.x = 0;//4.0 * atan2(pos_arr[1],pos_arr[0]);
+	  goal.target_pose.pose.orientation.y = 0;//4.0 * atan2(pos_arr[1],pos_arr[0]);
+	  goal.target_pose.pose.orientation.z = sin(atan2(pos_arr[1],pos_arr[0])/2);
+	  goal.target_pose.pose.orientation.w = cos(atan2(pos_arr[1],pos_arr[0])/2);
 
-
-	  ROS_INFO("Sending goal - new");
+	  ROS_INFO("Sending goal - direction");
 	  ac.sendGoal(goal);
 
-	  /*ac.waitForResult();
-
-	  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+	  ac.waitForResult();
+      
+	  goal.target_pose.pose.position.x = 0.5 * sqrt(pow(pos_arr[0], 2)+pow(pos_arr[1], 2))-1;
+      ROS_INFO("Sending goal - distance (%f)", 0.5*sqrt(pow(pos_arr[0], 2)+pow(pos_arr[1], 2)));
+	  ac.sendGoal(goal);
+	  sleep(1);
+      
+	  /*if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
 		ROS_INFO("Hooray, moved to the goal");
 	  else
 		ROS_INFO("The base failed to move for some reason");*/

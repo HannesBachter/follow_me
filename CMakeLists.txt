@@ -192,3 +192,7 @@ include_directories(
 
 add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
 target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
+add_executable(eband_moving_goal src/eband_moving_goal.cpp)
+target_link_libraries(eband_moving_goal ${catkin_LIBRARIES})
+add_executable(eband_moving_simple src/eband_moving_simple.cpp)
+target_link_libraries(eband_moving_simple ${catkin_LIBRARIES})
