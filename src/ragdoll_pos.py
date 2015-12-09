@@ -31,11 +31,13 @@ def broadcast_ragdoll_pose(msg,i):
     ragdollBroadcaster.sendTransform((x,y , 0),
                                      tf.transformations.quaternion_from_euler(0, 0, msg.pose.orientation.w+i),
                                      rospy.Time.now(), 'ragdoll_pos', 'map')
+    #print "Time: %f"%rospy.Time.now().nsecs 
  
 
 if __name__ == "__main__":
     i = 0
-    while 1:
+    while not rospy.is_shutdown():
         rospy.init_node('ragdoll_pose_broadcaster')
         broadcast_ragdoll_pose(ragdoll_pos_client(),i)
-        i = (i+0.0003) % 5
+        i = (i+0.0005) % 5
+        rospy.sleep(0.05)

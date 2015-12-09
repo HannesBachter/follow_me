@@ -80,6 +80,8 @@ void fill_rob_arr(float arrR[]){
 	  return;
 }
 
+//Kosinus ähnlichkeit sagt wenn 2 Vektoren ähnliche Richtung haben
+// =1 genau gleich, =-1 genau entgegen
 float cosine_similarity(float *A, float *B, int Vector_Length)
 {
     float dot = 0.0, denom_a = 0.0, denom_b = 0.0 ;
@@ -173,6 +175,7 @@ int main(int argc, char** argv){
 		  vGoal[1] = yDir;
 		  vRob[0] = xRob-xRobOld;
 		  vRob[1] = yRob-yRobOld;
+        //similarity beschreibt ähnlichkeit beider Richtungsvektoren => cos(alpha)
 		  float similarity = cosine_similarity(&vGoal[0], &vRob[0], 2);
 		  ROS_INFO("similarity: %f", similarity);
 
@@ -191,6 +194,7 @@ int main(int argc, char** argv){
 			  goal.target_pose.pose.orientation.w = cos(atan2(yDir, xDir)/2);
 
 			  ROS_INFO("Ragdoll is distancing");
+                //Parameter setzen, damit EBand Planer's catch moving goal ausgeführt wird
 			  n.setParam("/move_base/EBandPlannerROS/catch_moving_goal", true);
 			  n.setParam("/move_base/moving_target_frame", "ragdoll_pos");
 		  }
@@ -204,6 +208,7 @@ int main(int argc, char** argv){
 			  goal.target_pose.pose.orientation.w = cos(atan2(yGoal-yRob, xGoal-xRob)/2);
 
 			  ROS_INFO("Ragdoll is approaching");
+                  //Parameter setzen, damit EBand Planer's catch moving goal NICHT ausgeführt wird
 			  n.setParam("/move_base/EBandPlannerROS/catch_moving_goal", false);
 			  n.setParam("/move_base/moving_target_frame", "none");
 		  }
