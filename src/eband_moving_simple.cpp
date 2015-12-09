@@ -27,8 +27,10 @@ int main(int argc, char** argv){
   //set parameter for eband catch moving goal to be activated and to follow ragdoll
   ros::NodeHandle n;
   n.setParam("/move_base/EBandPlannerROS/catch_moving_goal", true);
+  n.setParam("/move_base/EBandPlannerROS/follow_moving_goal", true);
   n.setParam("/move_base/moving_target_frame", goal_frame);
-  
+  //system("rosrun dynamic_reconfigure dynparam set /move_base/EBandPlannerROS follow_moving_goal true");
+
   //send a goal to the robot
   goal.target_pose.header.frame_id = goal_frame;
   goal.target_pose.header.stamp = ros::Time::now();
@@ -42,6 +44,7 @@ int main(int argc, char** argv){
   goal.target_pose.pose.orientation.z = 0;//roundf(sin(atan2(pos_arr[1],pos_arr[0])/2)*100)/100.0;
   goal.target_pose.pose.orientation.w = 1;// roundf(cos(atan2(pos_arr[1],pos_arr[0])/2)*100)/100.0;
 
+  ros::Duration(5).sleep();
   ROS_INFO("Sending goal");
   ac.sendGoal(goal);
 

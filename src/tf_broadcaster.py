@@ -14,7 +14,7 @@ class PublishTf():
         self.br = tf.TransformBroadcaster()
         self.pub_freq = 100.0
         self.parent_frame_id = "middle"
-        self.child1_frame_id = "reference1"
+        self.child1_frame_id = "ragdoll_pos"
         self.child2_frame_id = "reference2"
         self.child3_frame_id = "reference3"
         self.child4_frame_id = "reference4"
