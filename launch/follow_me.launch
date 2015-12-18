@@ -3,6 +3,9 @@
 <launch>
   <node name="tf_broadcaster" pkg="follow_me" type="tf_broadcaster.py" output="screen"/>
   <node name="moving_frame" pkg="follow_me" type="eband_moving_frame" output="screen"/>
-  <node name="move_base_simple_goal" pkg="follow_me" type="eband_moving_simple" output="screen"/>
-  <node name="static_transform_publisher" pkg="tf" type="static_transform_publisher" args="0 -2 0 0 0 0 map  middle 100" output="screen" />
+  <!--node name="move_base_simple_goal" pkg="follow_me" type="eband_moving_simple" output="screen"/-->
+  <node name="eband_moving_simple" pkg="follow_me" type="eband_moving_simple.py" output="screen"/>
+  <node name="static_transform_publisher" pkg="tf" type="static_transform_publisher" args="3 -1 0 0 0 0 map  middle 100" output="screen" />
+
+  <rosparam file="/home/fmw-hb/catkin_ws_v2/src/cob_navigation/cob_navigation_local/config/local_costmap_params.yaml" command="load" />
 </launch>
