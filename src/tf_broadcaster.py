@@ -130,7 +130,7 @@ if __name__ == '__main__':
         #PTf.pub_circ(radius = 2, time = 25)
 
         print "wall test:"
-        PTf.pub_circ(radius = 4, time = 35)
+        PTf.pub_circ(radius = 2, time = 25)
 
         #print "obstacle test:"
         #PTf.pub_quadrat(length = 4, time = 30)
