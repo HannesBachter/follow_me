@@ -125,12 +125,12 @@ if __name__ == '__main__':
     
     while not rospy.is_shutdown():
         #print "trajectory test:"        
-        #PTf.pub_line(length = 2, time = 20)
+        #PTf.pub_line(length = 4, time = 20)
         #PTf.pub_quadrat(length = 2, time = 25)
         #PTf.pub_circ(radius = 2, time = 25)
 
-        print "wall test:"
-        PTf.pub_circ(radius = 2, time = 25)
+        #print "wall test:"
+        #PTf.pub_circ(radius = 2, time = 20)
 
-        #print "obstacle test:"
-        #PTf.pub_quadrat(length = 4, time = 30)
+        print "obstacle test:"
+        PTf.pub_quadrat(length = 4, time = 40)

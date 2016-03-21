@@ -40,7 +40,7 @@ if __name__ == "__main__":
     goal.target_pose.pose.orientation.w = 1.0
 
     #wait until frame is published properly
-    rospy.sleep(1)
+    rospy.sleep(2)
     rospy.loginfo('Sending goal')
     move_base_client.send_goal(goal)
 
